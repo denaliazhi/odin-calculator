@@ -1,41 +1,25 @@
-/*
-Calculator v.1 | Plan
-
-Goal: Create an interactive calculator that allows a user
-to perform basic arithmetic operations, such as
-- Addition
-- Subtraction
-- Division
-- Multiplication
-
-Reqs | HTML
-- Buttons for
-    - Digits [0 - 9]
-    - Arithmetic operators [+, -, *, /]
-    - Enter [=]
-    - Clear output [C]
-- Display box
-*/
-
-// Reqs | Javascript
-/* 
-- Create an array (`userPicked`)
-*/
 const userPicked = [];
 
-/*
-- If a digit is clicked, 
-    - If array is empty, push the digit
-        - No operation yet, so we start a new one
-    - If array length == 1, append the digit to array[0]
-        - Digit continues first operand
-    - If array length == 2, push the digit
-        - First operand and operator are defined
-        - Digit starts the second operand
-    - If array length == 3, append the digit to array[2]
-        - Digit continues second operand
-*/
 const digits = document.querySelector(".digits");
+digits.addEventListener("click", updateNumber);
+
+const operators = document.querySelector(".operators");
+operators.addEventListener("click", updateOperator);
+
+const general = document.querySelector(".general");
+general.addEventListener("click", (e) => {
+    const choice = e.target.textContent;
+    if (choice == '=') {
+        getResult(e);
+    } else {
+        clearAll();
+        updateDisplay();
+    }
+}
+);
+
+const display = document.querySelector(".display");
+const output = document.createElement("p");
 
 function updateNumber(e) {
     const digit = e.target.textContent;
@@ -52,24 +36,8 @@ function updateNumber(e) {
     } else if (len == 3) {
         userPicked[2] += digit;
     }
-    console.log(userPicked);
+    updateDisplay();
 }
-
-digits.addEventListener("click", updateNumber);
-
-/*
-- If an operator button is clicked, 
-    - If array length == 1, push the operator
-    - If array length == 2, set operator to array[1]
-        - "Override" the previous operator
-    - If array length == 3, 
-        - Pop all items from array
-        - Perform operation and display result
-            - Display should show decimals rounded to 3 digits
-        - Push result
-        - Push operator
-*/
-const operators = document.querySelector(".operators");
 
 function updateOperator(e) {
     const operator = e.target.textContent;
@@ -83,26 +51,8 @@ function updateOperator(e) {
         getResult();
         userPicked[1] = operator;
     }
-    console.log(userPicked);
+    updateDisplay();
 }
-
-operators.addEventListener("click", updateOperator);
-
-/*
-- If enter is clicked,
-    - If  array length < 3, do nothing
-        - Incomplete operation
-    - If  array length == 3, 
-        - Pop all items from array
-        - Perform operation and display result
-        - Push result
-        - POTENTIAL ISSUE: if next button is digit, it will be appended to the result
-            - Potential fix: push special char to next slot (array[1])
-            - When a digit is clicked, if array[1] == special char
-                - Clear array
-                - Push digit to array[0]
-*/
-const general = document.querySelector(".general");
 
 function getResult() {
     const len = userPicked.length;
@@ -110,35 +60,15 @@ function getResult() {
         const result = operate(...userPicked);
         clearAll();
         userPicked.push(result);
+        updateDisplay();
         userPicked.push('Last button was =');
     }
-    console.log(userPicked);
 }
 
-/*
-- When the clear button is clicked, clear the array
-    - Set length to 0
-*/
 function clearAll() {
     userPicked.length = 0;
 }
 
-general.addEventListener("click", (e) => {
-    const choice = e.target.textContent;
-    if (choice == '=') {
-        getResult(e);
-    } else {
-        clearAll();
-    }
-}
-);
-
-/*
-- Write a function to perform any operation given `num1`, `op`, `num2`
-    - If division by 0, return error message
-    - Return the result
-
-*/
 function operate(num1, op, num2) {
     switch (op) {
         case '+':
@@ -151,4 +81,9 @@ function operate(num1, op, num2) {
             if (num2 == 0) return "Undefined";
             return num1 / num2;
     }
+}
+
+function updateDisplay() {
+    output.textContent = userPicked.join(' ');
+    display.appendChild(output);
 }
