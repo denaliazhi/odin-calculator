@@ -15,10 +15,15 @@ Reqs | HTML
     - Enter [=]
     - Clear output [C]
 - Display box
+*/
 
-Reqs | Javascript
+// Reqs | Javascript
+/* 
 - Create an array (`userPicked`)
+*/
+const userPicked = [];
 
+/*
 - If a digit is clicked, 
     - If array is empty, push the digit
         - No operation yet, so we start a new one
@@ -29,7 +34,25 @@ Reqs | Javascript
         - Digit starts the second operand
     - If array length == 3, append the digit to array[2]
         - Digit continues second operand
+*/
+const digits = document.querySelector(".digits");
 
+function updateNumber(e) {
+    const digit = e.target.textContent;
+    const len = userPicked.length;
+    if (len == 0 || len == 2) {
+        userPicked.push(digit);
+    } else if (len == 1) {
+        userPicked[0] += digit;
+    } else if (len == 3) {
+        userPicked[2] += digit;
+    }
+    console.log(userPicked);
+}
+
+digits.addEventListener("click", updateNumber);
+
+/*
 - If an operator button is clicked, 
     - If array length == 1, push the operator
     - If array length == 2, set operator to array[1]
@@ -40,7 +63,27 @@ Reqs | Javascript
             - Display should show decimals rounded to 3 digits
         - Push result
         - Push operator
+*/
+const operators = document.querySelector(".operators");
 
+function updateOperator(e) {
+    const operator = e.target.textContent;
+    const len = userPicked.length;
+
+    if (len == 1) {
+        userPicked.push(operator);
+    } else if (len == 2) {
+        userPicked[1] = operator;
+    }/*
+     else if (len == 3) {
+    }
+    */
+    console.log(userPicked);
+}
+
+operators.addEventListener("click", updateOperator);
+
+/*
 - If enter is clicked,
     - If  array length < 3, do nothing
         - Incomplete operation
@@ -56,13 +99,14 @@ Reqs | Javascript
 
 - When the clear button is clicked, clear the array
     - Set length to 0
+*/
 
+/*
 - Write a function to perform any operation given `num1`, `op`, `num2`
     - If division by 0, return error message
     - Return the result
 
 */
-
 function operate(num1, op, num2) {
     switch (op) {
         case '+':
