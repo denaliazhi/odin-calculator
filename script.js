@@ -8,12 +8,14 @@ operators.addEventListener("click", updateOperator);
 
 const general = document.querySelector(".general");
 general.addEventListener("click", (e) => {
-    const choice = e.target.textContent;
-    if (choice == '=') {
-        getResult(e);
-    } else {
-        clearAll();
-        updateDisplay();
+    if (e.target.parentNode.className != 'keypad') {
+        const choice = e.target.textContent;
+        if (choice == '=') {
+            getResult(e);
+        } else {
+            clearAll();
+            updateDisplay();
+        }
     }
 }
 );
@@ -22,36 +24,40 @@ const display = document.querySelector(".display");
 const output = document.createElement("p");
 
 function updateNumber(e) {
-    const digit = e.target.textContent;
-    const len = userPicked.length;
-    if (len == 0) {
-        userPicked.push(digit);
-    } else if (len == 2) {
-        if (userPicked[1] == 'Last button was =') {
-            clearAll();
+    if (e.target.parentNode.className != 'keypad') {
+        const digit = e.target.textContent;
+        const len = userPicked.length;
+        if (len == 0) {
+            userPicked.push(digit);
+        } else if (len == 2) {
+            if (userPicked[1] == 'Last button was =') {
+                clearAll();
+            }
+            userPicked.push(digit);
+        } else if (len == 1) {
+            userPicked[0] += digit;
+        } else if (len == 3) {
+            userPicked[2] += digit;
         }
-        userPicked.push(digit);
-    } else if (len == 1) {
-        userPicked[0] += digit;
-    } else if (len == 3) {
-        userPicked[2] += digit;
+        updateDisplay();
     }
-    updateDisplay();
 }
 
 function updateOperator(e) {
-    const operator = e.target.textContent;
-    const len = userPicked.length;
+    if (e.target.parentNode.className != 'keypad') {
+        const operator = e.target.textContent;
+        const len = userPicked.length;
 
-    if (len == 1) {
-        userPicked.push(operator);
-    } else if (len == 2) {
-        userPicked[1] = operator;
-    } else if (len == 3) {
-        getResult();
-        userPicked[1] = operator;
+        if (len == 1) {
+            userPicked.push(operator);
+        } else if (len == 2) {
+            userPicked[1] = operator;
+        } else if (len == 3) {
+            getResult();
+            userPicked[1] = operator;
+        }
+        updateDisplay();
     }
-    updateDisplay();
 }
 
 function getResult() {
