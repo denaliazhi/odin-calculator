@@ -62,3 +62,17 @@ Reqs | Javascript
     - Return the result
 
 */
+
+function operate(num1, op, num2) {
+    switch (op) {
+        case '+':
+            return num1 + num2;
+        case '-':
+            return num1 - num2;
+        case '*':
+            return num1 * num2;
+        case '/':
+            if (num2 == 0) return "Undefined";
+            return num1 / num2;
+    }
+}
