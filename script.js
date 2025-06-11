@@ -40,7 +40,12 @@ const digits = document.querySelector(".digits");
 function updateNumber(e) {
     const digit = e.target.textContent;
     const len = userPicked.length;
-    if (len == 0 || len == 2) {
+    if (len == 0) {
+        userPicked.push(digit);
+    } else if (len == 2) {
+        if (userPicked[1] == 'Last button was =') {
+            clearAll();
+        }
         userPicked.push(digit);
     } else if (len == 1) {
         userPicked[0] += digit;
@@ -74,10 +79,10 @@ function updateOperator(e) {
         userPicked.push(operator);
     } else if (len == 2) {
         userPicked[1] = operator;
-    }/*
-     else if (len == 3) {
+    } else if (len == 3) {
+        getResult();
+        userPicked[1] = operator;
     }
-    */
     console.log(userPicked);
 }
 
@@ -99,12 +104,13 @@ operators.addEventListener("click", updateOperator);
 */
 const general = document.querySelector(".general");
 
-function getResult(e) {
+function getResult() {
     const len = userPicked.length;
     if (len == 3){
         const result = operate(...userPicked);
         clearAll();
         userPicked.push(result);
+        userPicked.push('Last button was =');
     }
     console.log(userPicked);
 }
