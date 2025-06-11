@@ -96,10 +96,36 @@ operators.addEventListener("click", updateOperator);
             - When a digit is clicked, if array[1] == special char
                 - Clear array
                 - Push digit to array[0]
+*/
+const general = document.querySelector(".general");
 
+function getResult(e) {
+    const len = userPicked.length;
+    if (len == 3){
+        const result = operate(...userPicked);
+        clearAll();
+        userPicked.push(result);
+    }
+    console.log(userPicked);
+}
+
+/*
 - When the clear button is clicked, clear the array
     - Set length to 0
 */
+function clearAll() {
+    userPicked.length = 0;
+}
+
+general.addEventListener("click", (e) => {
+    const choice = e.target.textContent;
+    if (choice == '=') {
+        getResult(e);
+    } else {
+        clearAll();
+    }
+}
+);
 
 /*
 - Write a function to perform any operation given `num1`, `op`, `num2`
@@ -110,7 +136,7 @@ operators.addEventListener("click", updateOperator);
 function operate(num1, op, num2) {
     switch (op) {
         case '+':
-            return num1 + num2;
+            return +num1 + +num2;
         case '-':
             return num1 - num2;
         case '*':
