@@ -1,7 +1,17 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .display {
     border: solid black 1px;
     border-radius: 10px;
     height: 30px;
     width: 300px;
     margin-bottom: 10px;
+}
+
+button {
+    padding: 5px 10px;
 }

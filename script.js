@@ -90,6 +90,14 @@ function operate(num1, op, num2) {
 }
 
 function updateDisplay() {
-    output.textContent = userPicked.join(' ');
+    output.textContent = userPicked.map(
+        str => roundIfNumber(str)).join(' ');
     display.appendChild(output);
+}
+
+function roundIfNumber(str) {
+    if (!Number.isNaN(+str)) {
+        return Math.round(str * 100) / 100;
+    }
+    return str;
 }
