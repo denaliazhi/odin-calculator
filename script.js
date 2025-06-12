@@ -64,11 +64,11 @@ function addDecimal() {
     if (len == 1 || len == 3) {
         if (!userPicked[len - 1].includes('.')) {
             userPicked[len - 1] += '.';
-            updateDisplay();
         }
     } else {
         userPicked.push('.');
     }
+    updateDisplay();
 }
 
 function operate(num1, op, num2) {
@@ -90,7 +90,7 @@ function getResult() {
     if (len == 3){
         const result = operate(...userPicked);
         clearAll();
-        userPicked.push(result);
+        userPicked.push('' + result); // Keep as string, not number
         updateDisplay();
         // Fill operator slot with this message
         userPicked.push('Last button was =');
@@ -103,7 +103,9 @@ function clearAll() {
 
 function clearOne() {
     const len = userPicked.length;
-    if (len == 0) return;
+    if (len == 0 || 
+        userPicked[len - 1] == 'Last button was =') 
+        return;
     if (userPicked[len - 1].length == 1) {
         userPicked.pop();
     } else {
@@ -119,8 +121,9 @@ function updateDisplay() {
 }
 
 function roundIfNumber(str) {
-    if ((!Number.isNaN(+str))) {
+    if ((str.slice(-1) !== '.') && (!Number.isNaN(+str))) {
         return Math.round(str * 10000) / 10000;
     }
+    // Return as-is for case like '23.' or operator
     return str;
 }
