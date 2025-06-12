@@ -25,7 +25,11 @@ const decimal = document.querySelector(".separator");
 decimal.addEventListener("click", addDecimal);
 
 function updateNumber(e) {
-    if (e.target.parentNode.className != 'keypad') {
+    if (e.target.parentNode.className != 'keypad'
+        && e.target.className != 'equals'
+        && e.target.className != 'separator'
+    ) {
+        console.log(e);
         const digit = e.target.textContent;
         const len = userPicked.length;
         if (len == 0) {
