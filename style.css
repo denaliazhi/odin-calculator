@@ -3,17 +3,63 @@
     margin: 0;
     padding: 0;
     border: none;
+    color: #303030;
+    font-family:Verdana, Tahoma, sans-serif;
+    font-weight: bold;
+    text-decoration-color: #E45555;
+}
+
+body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.gutter {
+    width: 130px;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.small-text {
+    font-weight: normal;
+    font-size: 12px;
+}
+
+button {
+    width: 50px;
+    height: 40px;
+    background-color: #303030;
+    color: #FFF;
+    transition-duration: 0.1s;
+}
+
+.header {
+    width: 170px;
+    margin: auto;
+    margin: 20px auto 0;
+}
+
+.correction {
+    color: #E45555;
+    transform: rotate(-15deg);
+    text-align: left;
 }
 
 .calculator {
-    margin: auto;
+    margin: 20px auto 50px;
     width: 215px;
 }
 
 .display {
-    border: solid black 1px;
-    border-radius: 10px;
-    height: 30px;
+    height: 18px;
     width: 215px;
     margin-bottom: 10px;
 }
@@ -25,16 +71,6 @@
 .keypad, .digits, .clear {
     display: flex;
     flex-wrap: wrap;
-}
-
-button {
-    width: 50px;
-    height: 40px;
-    background-color: #303030;
-    color: #FFF;
-    font-size: 16px;
-    font-weight: bold;
-    transition-duration: 0.1s;
 }
 
 .operators {
@@ -63,7 +99,6 @@ button {
 
 .equals {
     background-color: #EECFCF;
-    color: #303030;
 }
 
 .tl-corner {
@@ -82,6 +117,7 @@ button {
     border-bottom-right-radius: 10px;
 }
 
-button:hover {
-    border: solid white 3px;
+.credits {
+   margin: 20px;
+   text-align: right;
 }

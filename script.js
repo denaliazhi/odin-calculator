@@ -25,8 +25,9 @@ const decimal = document.querySelector(".separator");
 decimal.addEventListener("click", addDecimal);
 
 function updateNumber(e) {
+    console.log(e.target.className != 'equals br-corner');
     if (e.target.parentNode.className != 'keypad'
-        && e.target.className != 'equals'
+        && e.target.className != 'equals br-corner'
         && e.target.className != 'separator'
     ) {
         console.log(e);
