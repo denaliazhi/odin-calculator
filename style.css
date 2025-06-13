@@ -31,6 +31,7 @@ h1 {
 .small-text {
     font-weight: normal;
     font-size: 12px;
+    margin-bottom: 20px;
 }
 
 button {
@@ -39,6 +40,10 @@ button {
     background-color: #303030;
     color: #FFF;
     transition-duration: 0.1s;
+}
+
+button:hover {
+    border: solid #e0e0e0 2px;
 }
 
 .header {
@@ -120,4 +125,9 @@ button {
 .credits {
    margin: 20px;
    text-align: right;
+}
+
+span:hover {
+    font-size: 14px;
+    color: #db9840;
 }

@@ -24,13 +24,14 @@ clearEntry.addEventListener("click", clearOne);
 const decimal = document.querySelector(".separator");
 decimal.addEventListener("click", addDecimal);
 
+const wins = document.querySelector("span");
+wins.addEventListener("click", getWin);
+
 function updateNumber(e) {
-    console.log(e.target.className != 'equals br-corner');
     if (e.target.parentNode.className != 'keypad'
         && e.target.className != 'equals br-corner'
         && e.target.className != 'separator'
     ) {
-        console.log(e);
         const digit = e.target.textContent;
         const len = userPicked.length;
         if (len == 0) {
@@ -70,6 +71,8 @@ function addDecimal() {
         if (!userPicked[len - 1].includes('.')) {
             userPicked[len - 1] += '.';
         }
+    } else if (userPicked[1] == 'Last button was =') {
+        clearAll();
     } else {
         userPicked.push('.');
     }
@@ -85,7 +88,7 @@ function operate(num1, op, num2) {
         case '*':
             return num1 * num2;
         case '/':
-            if (num2 == 0) return 'Undefined';
+            if (num2 == 0) return 'undefined. silly hoo-man';
             return num1 / num2;
     }
 }
@@ -93,7 +96,10 @@ function operate(num1, op, num2) {
 function getResult() {
     const len = userPicked.length;
     if (len == 3){
-        const result = operate(...userPicked);
+        let result = operate(...userPicked);
+        if (Number.isNaN(result)) {
+            result = 'moo! not allowed';
+        }
         clearAll();
         userPicked.push('' + result); // Keep as string, not number
         updateDisplay();
@@ -131,4 +137,10 @@ function roundIfNumber(str) {
     }
     // Return as-is for case like '23.' or operator
     return str;
+}
+
+function getWin() {
+    let [trophy, count] = wins.textContent.split('x');
+    count++;
+    wins.textContent =  `${trophy}x${count}`;
 }
